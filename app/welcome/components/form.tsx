@@ -1,22 +1,29 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "../styles.module.scss"; 
 import { useRouter } from 'next/navigation';
+import getCookie from '@/utils/getCookieValue';
 
 const WelcomeForm = () => {
-  const router = useRouter();
-  const psw = process.env.NEXT_PUBLIC_USER_KEY; 
+  const router = useRouter(); 
+
   const [userKey, setUserKey] = useState("");
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const isAuthenticated = getCookie('userKey');  
+    if (isAuthenticated) router.push('/');  
+  }, []);
+
 
   const handleKey = (event: any) => {
     event.preventDefault(); 
     
-    if (userKey == psw) {
+    if (userKey == process.env.NEXT_PUBLIC_USER_KEY) {
       setError(false);
       document.cookie = `${'userKey'}=${process.env.NEXT_PUBLIC_USER_SECRET_KEY};path=/`;  
-      window.location.reload();
-      // router.push(`/`)
+      // window.location.reload();
+      router.push(`/`)
       return
     } 
     setError(true); 

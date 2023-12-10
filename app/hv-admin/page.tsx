@@ -1,12 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import {signIn} from 'next-auth/react'
 import styles from './styles.module.scss'
+import getCookie from '@/utils/getCookieValue';
+import { useRouter } from 'next/navigation';
 
-const Admin = () => {  
-
+const Admin = () => {   
   const [email, setEmail] = useState('');
   const [password, setPsw] = useState(''); 
+ 
 
   const [error, setError] = useState(false);
 
