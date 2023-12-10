@@ -11,13 +11,13 @@ export function middleware(request: NextRequest) {
   const userKey = request.cookies.get('userKey')?.value == process.env.NEXT_PUBLIC_USER_SECRET_KEY;  
   const adminKey =  request.cookies.get('adminKey')?.value == process.env.NEXT_PUBLIC_ADMIN_KEY; 
 
-  if(userKey && isPublicPath){ 
-    return NextResponse.redirect(new URL('/', request.url))
-  } 
+  // if(userKey && isPublicPath){ 
+  //   return NextResponse.redirect(new URL('/', request.url))
+  // } 
 
-  if(!userKey && !isPublicPath){ 
-    return NextResponse.redirect(new URL('/welcome', request.url))
-  }
+  // if(!userKey && !isPublicPath){ 
+  //   return NextResponse.redirect(new URL('/welcome', request.url))
+  // }
 
   // if(!adminKey && isPrivatePath){
   //   return NextResponse.redirect(new URL('/', request.url))
