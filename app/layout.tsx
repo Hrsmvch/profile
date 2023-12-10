@@ -1,29 +1,23 @@
-'use client'
-// import type { Metadata } from 'next'
-import './globals.css' 
-import { useRouter } from 'next/navigation';
+'use client' 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import getCookie from '@/utils/getCookieValue';
+import './globals.css' 
  
 const useAuthentication = () => {
   const router = useRouter();
 
   useEffect(() => {
     const isAuthenticated = getCookie('userKey');
-    console.log('isAuthenticated: ', isAuthenticated);
 
     if (!isAuthenticated) {
       router.push('/welcome'); 
     }
   }, [router]);
 };
-
-// export const metadata: Metadata = {
-//   title: 'Harasymovych HV', 
-// }
+ 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Use the custom authentication hook
   useAuthentication();
 
   return (

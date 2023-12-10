@@ -1,40 +1,36 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-// import {signIn} from 'next-auth/react'
-import styles from './styles.module.scss'
-import getCookie from '@/utils/getCookieValue';
+import React, { useEffect, useState } from 'react' 
+import styles from './styles.module.scss' 
 import { useRouter } from 'next/navigation';
+import { createUserDocumentFromAuth, signInWithGooglePopup } from '@/utils/firebase.utils';
 
-const Admin = () => {   
-  const [email, setEmail] = useState('');
-  const [password, setPsw] = useState(''); 
+const Admin = () => {    
+  const router = useRouter();
+  const [error, setError] = useState('');
  
-
-  const [error, setError] = useState(false);
-
-  const handleAuth = () => {
-    // signIn('credentials', {email, password, redirect: true, callbackUrl: '/'} )
+  const handleLoginWithGoogle = async () => {
+    try {
+      const response = await signInWithGooglePopup();
+      const userDocRef = await createUserDocumentFromAuth(response?.user);
+      
+      console.log('Successful sign in!');
+      setError('')
+      router.push('/edit') 
+    } catch (error: any) {
+      console.log('error: ', error);
+      console.log('Failed sign in!');
+      setError('User does not exist. Sign in not allowed!');
+    }
   };
+
   return (
     <div className={styles.page_wrapper}>
       <form className={styles.from}>
-        <h2>Welcome back!</h2>  
-
-        <input
-          type="text"
-          placeholder="Your email/username.."
-          onChange={(e: any) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Your password"
-          onChange={(e: any) => setPsw(e.target.value)}
-        />
-        <button type='button' onClick={handleAuth}>Sign in</button>
-
-      </form>
-      <div className={styles.keys_image}></div>
+        <h2>Welcome back!</h2> 
+        <p>To access the admin panel, please sign in using administrator credentials!</p> 
+        <button type='button' onClick={handleLoginWithGoogle}>Sign in with Google</button> 
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+      </form> 
     </div>
   )
 }
