@@ -1,6 +1,6 @@
 import React from 'react'
 import WelcomeForm from './components/form'
-import styles from "./styles.module.scss"
+import styles from "./styles.module.scss" 
 
 const Welcome = () => { 
   return (
