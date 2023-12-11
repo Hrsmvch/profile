@@ -60,8 +60,8 @@
 
   .keys_image {
     width: 60%;
-    height: 100%;
-    background: url("/keys.svg");
+    height: 100%;  
+    background-image: url("../../public/keys.png"); 
     background-color: var(--dark);
     background-position: center center;
     background-size: cover;
