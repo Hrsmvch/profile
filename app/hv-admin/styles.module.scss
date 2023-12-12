@@ -24,14 +24,23 @@
     h2{
       margin-bottom: 20px;
     }
+
     p{
       line-height: 25px;
       margin-bottom: 16px;
       font-style: italic; 
     }
  
+    input{
+      padding: 10px;
+      background: inherit;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #000;
+    }
 
     button {
+      margin-top: 20px;
       padding: 16px 30px;
       transition: 500ms background linear, 500ms color linear;
       background-color: #5d5d5d;

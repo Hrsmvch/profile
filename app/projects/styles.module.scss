@@ -1,0 +1,286 @@
+.all_projects {
+  padding: 100px 0;
+  background: var(--light);
+  .container {
+    width: 100%;
+    max-width: var(--container_width);
+    margin: 0 auto;
+    padding: 0 20px;
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 80px;
+      .filter_item {
+        padding: 10px 30px;
+        transition: background 300ms linear;
+        cursor: pointer;
+        border: 1px solid var(--dark);
+        font-size: 20px;
+        color: var(--dark);
+        &.active {
+          transition: background 300ms linear;
+          background: var(--dark);
+          color: #fff;
+        }
+      }
+    }
+
+    .projects {
+      .project_item {
+        box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        position: relative;
+        margin-bottom: 50px;
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--dark);
+        border-radius: 2px;
+        .tag {
+          position: absolute;
+          top: 16px;
+          right: -20px;
+          padding: 10px 30px;
+          border: 1px solid var(--dark);
+          font-size: 14px;
+        }
+
+        .image {
+          position: relative;
+          overflow: hidden;
+          width: 40%;
+          height: 375px;
+          img {
+            object-fit: cover;
+            box-shadow: 13px 13px 33px 0px rgba(0, 0, 0, 0.4);
+            position: relative;
+            top: -50px;
+            left: -73px;
+            transform: rotate(-22deg);
+            width: 400px;
+            height: 370px;
+            border-radius: 10px;
+          }
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          width: 60%;
+          padding: 20px;
+          .date {
+            margin-bottom: 8px;
+            font-size: 16px;
+          }
+          .title {
+            margin-bottom: 30px;
+            font-size: 36px;
+          }
+
+          .summary {
+            margin: auto 0;
+            margin-bottom: 30px;
+            font-size: 14px;
+          }
+
+          .button {
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin: auto 0 0 auto;
+            background: transparent;
+            cursor: pointer;
+            border: 1px solid #1b1b1b;
+            svg {
+              path {
+                fill: var(--dark);
+              }
+            }
+          }
+        }
+      }
+
+      .more {
+        display: flex;
+        justify-content: center;
+        button {
+          padding: 10px 30px;
+          background-color: transparent;
+          cursor: pointer;
+          border: 1px solid var(--dark);
+          font-size: 20px;
+          color: var(--dark);
+        }
+      }
+    }
+  }
+}
+
+@media (width < 1200px) {
+  .all_projects {
+    .container {
+      padding: 0 36px;
+      .projects {
+        .project_item {
+          margin-bottom: 30px;
+          .image {
+            width: 40%;
+            img {
+              width: 300px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 920px) {
+  .filters {
+    overflow-x: auto;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--dark);
+      border-radius: 20px;
+    }
+    .filter_item {
+      padding: 8px 30px;
+      font-size: 18px;
+    }
+  }
+
+  .all_projects {
+    padding: 80px 0;
+    .container {
+      .projects {
+        .project_item {
+          overflow: hidden;
+          .tag {
+            position: relative;
+            z-index: 3;
+            height: fit-content;
+          }
+
+          .image {
+            position: absolute;
+            &:before {
+              content: "";
+              position: absolute;
+              z-index: 2;
+              top: -50px;
+              left: -73px;
+              opacity: 0.48;
+              transform: rotate(-22deg);
+              width: 300px;
+              height: 370px;
+              background-color: #ffffff;
+              border-radius: 10px;
+            }
+
+            img {
+              box-shadow: none;
+            }
+          }
+
+          .info {
+            z-index: 3;
+            width: 65%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 768px) {
+  .all_projects {
+    padding: 80px 0;
+    .container {
+      padding: 0 16px;
+      .filters {
+        gap: 8px;
+        width: calc(100% + 32px);
+        margin-bottom: 50px;
+        margin-left: -16px;
+        padding-right: 16px;
+        padding-left: 16px;
+        &::-webkit-scrollbar-track {
+          margin-right: 16px;
+          margin-left: 16px;
+        }
+
+        .filter_item {
+          padding: 8px 30px;
+          font-size: 14px;
+        }
+      }
+      .projects {
+        .project_item {
+          flex-direction: column;
+          justify-content: center;
+          padding-top: 88px;
+          .tag {
+            position: relative;
+            top: unset;
+            left: unset;
+            right: 0;
+            margin: 0 20px 0 auto;
+          }
+
+          .image {
+            top: 0;
+            width: 100%; 
+          }
+          .info {
+            flex-grow: 1;
+            z-index: 3;
+            width: 100%;
+            .heading {
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              text-align: right;
+            }
+
+            .date {
+              font-size: 14px;
+            }
+            .title {
+              font-size: 24px;
+            }
+            .summary {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              flex-grow: 1;
+              margin: auto 0 auto 0;
+              padding-bottom: 50px;
+            }
+
+            .button {
+              margin: auto 0 0 auto;
+            }
+          }
+        }
+
+        .more {
+          button {
+            padding: 8px 30px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

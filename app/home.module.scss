@@ -1,0 +1,139 @@
+
+.homeSection {
+  background-color: var(--light);
+  padding: 50px 0;
+  overflow: hidden;
+
+  .container {
+    max-width: var(--container_width);
+    width: 100%;
+    margin: 0 auto;
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      .text {
+        width: 50%;
+        z-index: 2;
+        .textHeader {
+          font-size: 40px;
+          -webkit-text-stroke: 1px #dfb289;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 40px;
+          font-family: cursive;
+        }
+        .textDescription {
+          line-height: 1.5;
+        }
+      }
+
+      .images {
+        position: relative;
+        height: 600px;
+        width: 600px;
+
+        .largeImage {
+          max-width: 600px;
+          max-height: 450px;
+          object-fit: cover;
+          position: absolute;
+          bottom: 100px;
+          right: -100px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 2px;
+        }
+
+        .smallImage {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 300px;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 1200px) {
+  .homeSection {
+    .container {
+      padding: 0 16px;
+      .content {
+        gap: 20px;
+        .images {
+          position: relative;
+          height: 400px;
+          width: 400px;
+
+          .largeImage {
+            max-width: 400px;
+            max-height: 350px;
+          }
+
+          .smallImage {
+            width: 300px;
+            height: 300px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 920px) {
+  .homeSection {
+    .container {
+      .content {
+        position: relative;
+        gap: 20px;
+        .images {
+          position: absolute;
+          margin-bottom: -50px;
+          height: 400px;
+          width: 400px;
+          bottom: 0;
+          right: -50px;
+
+          .largeImage {
+            max-width: 400px;
+            max-height: 350px;
+            bottom: 50px;
+            right: -100px;
+          }
+
+          .smallImage {
+            width: 250px;
+            height: 250px;
+          }
+        }
+      }
+    }
+  } 
+}
+
+@media (width <= 768px) {
+  .homeSection {
+    .container {
+      .content {
+        .text {
+          width: 80%;
+        }
+        .images {
+          opacity: 0.4;
+          height: 100%;
+
+          .smallImage {
+            width: 200px;
+            height: 200px;
+          }
+        }
+      }
+    }
+  } 
+}

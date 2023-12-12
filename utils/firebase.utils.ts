@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
  
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_DB_API_KEY,
@@ -21,16 +22,15 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth: any) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
-
+  console.log('userDocRef: ', userDocRef);
   const userSnapshot = await getDoc(userDocRef);
 
-  if (userSnapshot.exists()) { // Check if user exists
+  if (userSnapshot.exists()) { 
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
@@ -43,10 +43,20 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
     } catch (error: any) {
       console.log('Error updating user document', error.message);
     }
-  } else {
-    console.log('User does not exist. Sign in not allowed.');
+  } else { 
     throw new Error('User does not exist. Sign in not allowed.'); 
   }
 
   return userDocRef;
 };
+
+export const signInUserWithEmailAndPassword = async ({email, password}: any) => { 
+  if(!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
+}
+
+export const signOutUser = async () => await signOut(auth); 
+
+export const onAuthStateChangedListener = (callback: any) =>
+  onAuthStateChanged(auth, callback);

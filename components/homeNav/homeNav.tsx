@@ -1,31 +1,38 @@
-'use client'
-import React from 'react'
-import styles from './styles.module.scss'
-import { useRouter } from 'next/navigation' 
+"use client";
+import React from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
+import aboutMeImage from "../../public/homeNav/about.jpeg";
+import blogImage from "../../public/homeNav/blog.jpg";
+import contactsImage from "../../public/homeNav/contacts.jpg";
+import projectsImage from "../../public/homeNav/projects.jpg";
+
+import styles from "./styles.module.scss";
 
 const HomeNav = () => {
   const router = useRouter();
+  const handlePage = (page: string) => router.push(`/${page}`);
   return (
-    <nav className={styles.home_nav}>
-      <div onClick={() => router.push('/about')}>
+    <nav className={styles.homeNav}>
+      <div onClick={() => handlePage("about")}>
         <span>About</span>
-        {/* <img src={aboutMeImage} alt="Halyna Harasymovych" /> */}
+        <Image src={aboutMeImage} alt="Halyna Harasymovych | About me" />
       </div>
-      <div onClick={() => router.push('/projects')}>
+      <div onClick={() => handlePage('projects')}>
         <span>Projects</span>
-        {/* <img src={projectsImage} alt="Projects" /> */}
+        <Image src={projectsImage} alt="Halyna Harasymovych | Projects" />
       </div>
-      <div onClick={() => router.push('/blog')}>
+      <div onClick={() => handlePage("blog")}>
         <span>Blog</span>
-        {/* <img src={blogImage} alt="Blog" /> */}
+        <Image src={blogImage} alt="Halyna Harasymovych | Blog" />
       </div>
-      <div onClick={() => router.push('/contacts')}>
+      <div onClick={() => handlePage("contacts")}>
         <span>Contact</span>
-        {/* <img src={contactImage} alt="Contact" /> */}
+        <Image src={contactsImage} alt="Halyna Harasymovych | Contact" />
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default HomeNav
+export default HomeNav;
