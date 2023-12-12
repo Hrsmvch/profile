@@ -10,7 +10,11 @@ const nextConfig = {
     return config;
   }, 
 
-  
+   experimental: {
+      externalDir: true
+    },
+    // Potential new config flag:
+    disableExperimentalFeaturesWarning: true
 }
 
 module.exports = nextConfig
