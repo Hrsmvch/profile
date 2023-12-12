@@ -1,0 +1,54 @@
+.download_resume{
+  padding: 0 0 100px 0;
+  background: var(--light);
+  .container {
+    width: 100%;
+    max-width: var(--container_width);
+    margin: 0 auto;
+
+    .resume_wrapper{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .resume_btn{
+        background-color: #000;
+        color: #fff;
+        text-transform: uppercase;
+        padding: 20px 40px;
+        font-family: monospace;
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+    }
+  }
+}
+
+@media (width < 1200px) {
+  .download_resume{
+    padding: 0 0 100px 0;
+    background: var(--light);
+    .container {
+      padding: 0 16px; 
+    }
+  } 
+}
+
+@media (width < 920px) {
+
+}
+
+@media (width < 768px) {
+  .download_resume{
+    padding: 0 0 80px 0;
+    .container {
+      .resume_wrapper{
+        
+        .resume_btn{ 
+          padding: 16px 20px; 
+          font-size: 16px; 
+        }
+      }
+    }
+  } 
+}

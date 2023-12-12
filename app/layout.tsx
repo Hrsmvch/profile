@@ -1,29 +1,21 @@
-'use client' 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import getCookie from '@/utils/getCookieValue';
-import './globals.css' 
- 
-const useAuthentication = () => {
-  const router = useRouter();
+import { AppWrapper } from "@/components/appWrapper/appWrapper";
+import { Metadata } from "next";
+import "./globals.css";
 
-  useEffect(() => {
-    const isAuthenticated = getCookie('userKey');
-
-    if (!isAuthenticated) {
-      router.push('/welcome'); 
-    }
-  }, [router]);
+export const metadata: Metadata = {
+  title: "Harasymovych HV",
+  description: "",
 };
- 
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  useAuthentication();
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
   );
