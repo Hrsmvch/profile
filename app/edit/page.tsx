@@ -17,7 +17,9 @@ const Edit = () => {
   // }
 
   useEffect(() => {
-    if (getCookie("adminKey") != process.env.NEXT_PUBLIC_ADMIN_KEY) {
+    const isAdminAuthenticated = getCookie("adminKey");
+
+    if (!isAdminAuthenticated) {
       router.push("/hv-admin");
     }
   }, []);
