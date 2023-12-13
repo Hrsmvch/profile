@@ -1,6 +1,7 @@
 import React from 'react'
+import Image from 'next/image';
+import aboutMeImage from "../../../../public/temp/about_me_2.jpg";
 import styles from './styles.module.scss';
-
 
 const SummaryContent = () => {
   return ( 
@@ -27,7 +28,7 @@ const SummaryContent = () => {
         </div>
 
         <div className={styles.image}>
-          <img src={''} alt="" />
+          <Image src={aboutMeImage} alt="Halyna Harasymovych" />
         </div>
       </div>
     </div>
