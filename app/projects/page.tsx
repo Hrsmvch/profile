@@ -59,7 +59,6 @@ const Projects = () => {
                   <div className={styles.image}>
                     <img src={'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'} alt="Cue.inc" />
                   </div>
-                  <div className={styles.tag}>{'Frontend'}</div>
                   <div className={styles.info}>
                     <div className={styles.heading}>
                       <div className={styles.date}>{'13. July 2023'}</div>
@@ -73,12 +72,12 @@ const Projects = () => {
                 </div>
               </>
             ))}
+          </div>
             {visibleProjects < filteredProjects.length && (
               <div className={styles.more}>
                 <button onClick={handleLoadMore}>More</button>
               </div>
             )}
-          </div>
         </div>
       </section>
 

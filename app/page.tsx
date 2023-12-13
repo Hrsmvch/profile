@@ -1,11 +1,11 @@
+import Image from "next/image";
 import Header from "@/components/header/header";
-import styles from "./home.module.scss";
 import Footer from "@/components/footer/footer";
 import HomeNav from "@/components/homeNav/homeNav";
 import coverImage from "../public/bg.jpg";
 import coverImage2 from "../public/home_2.png";
-import Image from "next/image";
 import ProjectsPreview from "@/components/projectsPreview/projectsPreview";
+import styles from "./home.module.scss";
 
 export default function Home() {
   return (
