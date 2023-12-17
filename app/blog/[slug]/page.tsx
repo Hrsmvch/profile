@@ -14,7 +14,7 @@ import Footer from "@/components/footer/footer";
 type ArticleData = Article | null;
 
 export function generateStaticParams() {
-  const pages = ['/blog/hello', 'result-page'];
+  const pages = ['/hello', '/*'];
   return pages.map((page) => ({ slug: page }));
 }
  
