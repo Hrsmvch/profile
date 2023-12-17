@@ -1,110 +1,15 @@
-
-import { Article, BlogCategory } from "@/types";
-import {
-  getArticleBySlug,
-  getCategoriesAndDocuments,
-} from "@/utils/firebase.utils";
-// import { useParams } from "next/navigation";  
-import styles from "./styles.module.scss";
-import getFormattedDate from "@/utils/getFormatedDate.utils";
-import getShuffleArray from "@/utils/getShuffleArray";
-import { default as ArrowUpIcon } from "@/public/arrow_up_right.svg";
-import Footer from "@/components/footer/footer"; 
+import { getCategoriesAndDocuments } from "@/utils/firebase.utils";
 import ArticleContent from "./components/ArticleContent";
 
-type ArticleData = Article | null;
-
-export async function generateStaticParams () {
+export async function generateStaticParams() {
   const categories = await getCategoriesAndDocuments();
-  console.log('categories: ', categories);
   const allArticles = categories.flatMap((category) => category.items);
-  console.log('allArticles: ', allArticles);
-
-  const paths = allArticles.map((article) => ({ params: { slug: article.slug } }));
-  console.log('paths: ', paths);
-
-
-  const pages = ['/blog/hello', 'result-page'];
-  return pages.map((page) => ({ slug: page }));
+  
+  return allArticles.map((page) => ({ slug: page.slug }));
 }
- 
-const page = () => { 
-  // const { slug } = useParams(); 
- 
-//  const [article, setArticle] = useState<ArticleData>(null);
 
- // const [allArticles, setAllArticles] = useState<Article[]>([]);
-
-  // useEffect(() => {
-  //   const getArticleData = async () => {
-  //     const response: ArticleData = await getArticleBySlug(`${slug}`);
-  //     setArticle(response);
-  //   };
-
-  //   const getArticles = async () => {
-  //     const response = await getCategoriesAndDocuments();
-  //     setAllArticles(response?.flatMap((category) => category.items));
-  //   };
-
-  //   getArticleData();
-  //   getArticles();
-  // }, [slug]);
-
-  // const shuffledArticles = getShuffleArray(allArticles || []);
-
-  // if (!article) return;
-
-  return (
-    <> 
-      <header className={styles.blog_header}>
-        <a href="/" className={styles.logo}>
-          HARASYMOVYCH
-        </a>
-        <div className={styles.container}>
-          <div className={styles.upper_text}>The blog</div>
-{/*           <div className={styles.title}>{article?.title}</div> */}
-{/*           <div className={styles.date}>{getFormattedDate(article.date)}</div> */}
-        </div>
-      </header>
-      <ArticleContent />
-{/*       <section className={styles.article_content}>
-        <div className={styles.container}>
-          <div
-            className={styles.content}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          ></div>
-        </div>
-      </section>
-      <section className={styles.more_articles}>
-        <div className={styles.container}>
-          <div className={styles.heading}>
-            <h2>Explore more articles</h2>
-            <a href="/blog">See all</a>
-          </div> 
-          {shuffledArticles?.length ? (
-            <div className={styles.additional_articles}>
-              {shuffledArticles?.slice(0, 3).map((article, index) => (
-                <>
-                  <div key={index} className={`${styles.article_item}`}>
-                    <div className={styles.title}>{article.title}</div>
-
-                    <div className={styles.summary}>{article.summary}</div>
-                    <div className={styles.date}>
-                      {getFormattedDate(article.date)}
-                    </div>
-                    <a href={`/blog/${article.slug}`} className={styles.button}>
-                      <ArrowUpIcon />
-                    </a>
-                  </div>
-                </>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      </section> */}
-      <Footer />
-    </>
-  );
+const page = () => {
+  return <ArticleContent />;
 };
 
 export default page;
