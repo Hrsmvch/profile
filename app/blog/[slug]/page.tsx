@@ -1,11 +1,10 @@
-"use client";
+
 import { Article, BlogCategory } from "@/types";
 import {
   getArticleBySlug,
   getCategoriesAndDocuments,
 } from "@/utils/firebase.utils";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";  
 import styles from "./styles.module.scss";
 import getFormattedDate from "@/utils/getFormatedDate.utils";
 import getShuffleArray from "@/utils/getShuffleArray";
@@ -22,28 +21,28 @@ export function generateStaticParams() {
 const page = () => { 
   const { slug } = useParams(); 
  
-  const [article, setArticle] = useState<ArticleData>(null);
+//  const [article, setArticle] = useState<ArticleData>(null);
 
-  const [allArticles, setAllArticles] = useState<Article[]>([]);
+ // const [allArticles, setAllArticles] = useState<Article[]>([]);
 
-  useEffect(() => {
-    const getArticleData = async () => {
-      const response: ArticleData = await getArticleBySlug(`${slug}`);
-      setArticle(response);
-    };
+  // useEffect(() => {
+  //   const getArticleData = async () => {
+  //     const response: ArticleData = await getArticleBySlug(`${slug}`);
+  //     setArticle(response);
+  //   };
 
-    const getArticles = async () => {
-      const response = await getCategoriesAndDocuments();
-      setAllArticles(response?.flatMap((category) => category.items));
-    };
+  //   const getArticles = async () => {
+  //     const response = await getCategoriesAndDocuments();
+  //     setAllArticles(response?.flatMap((category) => category.items));
+  //   };
 
-    getArticleData();
-    getArticles();
-  }, [slug]);
+  //   getArticleData();
+  //   getArticles();
+  // }, [slug]);
 
-  const shuffledArticles = getShuffleArray(allArticles || []);
+  // const shuffledArticles = getShuffleArray(allArticles || []);
 
-  if (!article) return;
+  // if (!article) return;
 
   return (
     <>
@@ -57,7 +56,7 @@ const page = () => {
           <div className={styles.date}>{getFormattedDate(article.date)}</div>
         </div>
       </header>
-      <section className={styles.article_content}>
+{/*       <section className={styles.article_content}>
         <div className={styles.container}>
           <div
             className={styles.content}
@@ -91,7 +90,7 @@ const page = () => {
             </div>
           ) : null}
         </div>
-      </section>
+      </section> */}
       <Footer />
     </>
   );
