@@ -4,7 +4,7 @@ import {
   getArticleBySlug,
   getCategoriesAndDocuments,
 } from "@/utils/firebase.utils";
-import { useParams } from "next/navigation";  
+// import { useParams } from "next/navigation";  
 import styles from "./styles.module.scss";
 import getFormattedDate from "@/utils/getFormatedDate.utils";
 import getShuffleArray from "@/utils/getShuffleArray";
@@ -19,7 +19,7 @@ export function generateStaticParams() {
 }
  
 const page = () => { 
-  const { slug } = useParams(); 
+  // const { slug } = useParams(); 
  
 //  const [article, setArticle] = useState<ArticleData>(null);
 
