@@ -16,7 +16,7 @@ type ArticleData = Article | null;
 
 export function generateStaticParams() {
  
-  const pages = ['/blog/hello', 'result-page']; 
+  const pages = ['hello', 'result-page', '*', 'post-*']; 
   return pages.map((page) => ({ slug: page }));
 }
  
