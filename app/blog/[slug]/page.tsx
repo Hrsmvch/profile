@@ -15,7 +15,8 @@ import ArticleContent from "./components/ArticleContent";
 type ArticleData = Article | null;
 
 export function generateStaticParams() {
-  const pages = ['/blog/hello', 'result-page'];
+ 
+  const pages = ['/blog/hello', 'result-page']; 
   return pages.map((page) => ({ slug: page }));
 }
  
