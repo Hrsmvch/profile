@@ -38,8 +38,9 @@ export async function getStaticProps({ params }: any) {
 }
 
 
-const page = () => {
+const page = () => { 
   const { slug } = useParams(); 
+ 
   const [article, setArticle] = useState<ArticleData>(null);
 
   const [allArticles, setAllArticles] = useState<Article[]>([]);
