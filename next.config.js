@@ -12,12 +12,9 @@ const nextConfig = {
 
     return config;
   }, 
-    generateStaticParams: async () => {
-      // Implement the logic to generate static params here
-      // For example, you can fetch data from an API and return an array of paths
-      const paths = ['/blog/mastering-ui-consistency-designing-seamless-interfaces', '/blog/agile-methodology-in-software-development-explanation'];
-      return paths;
-    },
+     experimental: {
+    // your experimental configuration
+  },
  
 }
 
