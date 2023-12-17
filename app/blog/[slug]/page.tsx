@@ -15,7 +15,8 @@ import Footer from "@/components/footer/footer";
 type ArticleData = Article | null;
 
 const page = () => {
-  const { slug } = useParams();
+  // const { slug } = useParams();
+  const slug = 'hello'; 
   const [article, setArticle] = useState<ArticleData>(null);
 
   const [allArticles, setAllArticles] = useState<Article[]>([]);
