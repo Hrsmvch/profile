@@ -15,7 +15,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 type ArticleData = Article | null;
 
-export const generateStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await getCategoriesAndDocuments();
   const allArticles = categories.flatMap((category) => category.items);
 
@@ -24,9 +24,8 @@ export const generateStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
-
   const article = await getArticleBySlug(slug as string);
 
   return {
@@ -35,6 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     },
   };
 };
+
 
 const page = () => { 
   const { slug } = useParams(); 
