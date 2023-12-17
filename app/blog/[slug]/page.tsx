@@ -52,8 +52,8 @@ const page = () => {
         </a>
         <div className={styles.container}>
           <div className={styles.upper_text}>The blog</div>
-          <div className={styles.title}>{article?.title}</div>
-          <div className={styles.date}>{getFormattedDate(article.date)}</div>
+{/*           <div className={styles.title}>{article?.title}</div> */}
+{/*           <div className={styles.date}>{getFormattedDate(article.date)}</div> */}
         </div>
       </header>
 {/*       <section className={styles.article_content}>
