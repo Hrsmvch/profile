@@ -14,9 +14,32 @@ import Footer from "@/components/footer/footer";
 
 type ArticleData = Article | null;
 
+export async function generateStaticParams() {
+  const categories = await getCategoriesAndDocuments();
+  const allArticles = categories.flatMap((category) => category.items);
+
+  // Generate an array of paths based on the available article slugs
+  const paths = allArticles.map((article) => ({ params: { slug: article.slug } }));
+
+  return paths;
+}
+
+export async function getStaticProps({ params }: any) {
+  const { slug } = params;
+
+  // Fetch the article data based on the dynamic slug parameter
+  const article = await getArticleBySlug(slug);
+
+  return {
+    props: {
+      article,
+    },
+  };
+}
+
+
 const page = () => {
-  // const { slug } = useParams();
-  const slug = 'hello'; 
+  const { slug } = useParams(); 
   const [article, setArticle] = useState<ArticleData>(null);
 
   const [allArticles, setAllArticles] = useState<Article[]>([]);
