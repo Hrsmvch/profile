@@ -14,7 +14,7 @@ import ArticleContent from "./components/ArticleContent";
 
 type ArticleData = Article | null;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
    const categories = await getCategoriesAndDocuments(); 
   const allArticles = categories.flatMap((category) => category.items);  
 
