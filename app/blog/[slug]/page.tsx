@@ -11,32 +11,30 @@ import getFormattedDate from "@/utils/getFormatedDate.utils";
 import getShuffleArray from "@/utils/getShuffleArray";
 import { default as ArrowUpIcon } from "@/public/arrow_up_right.svg";
 import Footer from "@/components/footer/footer";
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 type ArticleData = Article | null;
 
-export async function generateStaticParams() {
+export const generateStaticPaths: GetStaticPaths = async () => {
   const categories = await getCategoriesAndDocuments();
   const allArticles = categories.flatMap((category) => category.items);
 
-  // Generate an array of paths based on the available article slugs
   const paths = allArticles.map((article) => ({ params: { slug: article.slug } }));
 
-  return paths;
-}
+  return { paths, fallback: false };
+};
 
-export async function getStaticProps({ params }: any) {
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   const { slug } = params;
 
-  // Fetch the article data based on the dynamic slug parameter
-  const article = await getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug as string);
 
   return {
     props: {
       article,
     },
   };
-}
-
+};
 
 const page = () => {
   const { slug } = useParams(); 
