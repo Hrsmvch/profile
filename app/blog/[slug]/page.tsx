@@ -14,6 +14,10 @@ import Footer from "@/components/footer/footer";
 
 type ArticleData = Article | null;
 
+export function generateStaticParams() {
+  const pages = ['hello', 'result-page'];
+  return pages.map((page) => ({ slug: page }));
+}
  
 const page = () => { 
   const { slug } = useParams(); 
