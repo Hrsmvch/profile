@@ -10,32 +10,11 @@ import styles from "./styles.module.scss";
 import getFormattedDate from "@/utils/getFormatedDate.utils";
 import getShuffleArray from "@/utils/getShuffleArray";
 import { default as ArrowUpIcon } from "@/public/arrow_up_right.svg";
-import Footer from "@/components/footer/footer";
-import { GetStaticPaths, GetStaticProps } from 'next';
+import Footer from "@/components/footer/footer"; 
 
 type ArticleData = Article | null;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = await getCategoriesAndDocuments();
-  const allArticles = categories.flatMap((category) => category.items);
-
-  const paths = allArticles.map((article) => ({ params: { slug: article.slug } }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params;
-  const article = await getArticleBySlug(slug as string);
-
-  return {
-    props: {
-      article,
-    },
-  };
-};
-
-
+ 
 const page = () => { 
   const { slug } = useParams(); 
  
