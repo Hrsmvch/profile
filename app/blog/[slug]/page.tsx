@@ -14,7 +14,16 @@ import ArticleContent from "./components/ArticleContent";
 
 type ArticleData = Article | null;
 
-export function generateStaticParams() {
+export async function generateStaticParams () {
+  const categories = await getCategoriesAndDocuments();
+  console.log('categories: ', categories);
+  const allArticles = categories.flatMap((category) => category.items);
+  console.log('allArticles: ', allArticles);
+
+  const paths = allArticles.map((article) => ({ params: { slug: article.slug } }));
+  console.log('paths: ', paths);
+
+
   const pages = ['/blog/hello', 'result-page'];
   return pages.map((page) => ({ slug: page }));
 }
