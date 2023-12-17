@@ -15,9 +15,13 @@ import ArticleContent from "./components/ArticleContent";
 type ArticleData = Article | null;
 
 export function generateStaticParams() {
- 
-  const pages = ['hello', 'result-page', '*', 'post-*']; 
-  return pages.map((page) => ({ slug: page }));
+   const categories = await getCategoriesAndDocuments(); 
+  const allArticles = categories.flatMap((category) => category.items);  
+
+  return allArticles.map((page) => ({ slug: page.slug }));
+  
+  // const pages = ['hello', 'result-page', '*', 'post-*']; 
+  // return pages.map((page) => ({ slug: page }));
 }
  
 const page = () => { 
