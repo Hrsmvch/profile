@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: process.env.NODE_ENV === "development" ? undefined : "export",
+const nextConfig = { 
   images: {
     // your images configuration options here
   },
