@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import getCookie from "@/utils/getCookieValue";
 import styles from "./styles.module.scss";
 import Header from "@/components/header/header";
+import { createArticle, updateArticleById } from "@/utils/firebase.utils";
+import { Article } from "@/types";
 
 const Edit = () => {
   const router = useRouter();
@@ -16,11 +18,49 @@ const Edit = () => {
   //   router.push('/hv-admin')
   // }
 
-  useEffect(() => { 
-    if (!getCookie("adminKey") || (getCookie("adminKey") != process.env.NEXT_PUBLIC_ADMIN_KEY)) {
+  useEffect(() => {
+    if (
+      !getCookie("adminKey") ||
+      getCookie("adminKey") != process.env.NEXT_PUBLIC_ADMIN_KEY
+    ) {
       router.push("/hv-admin");
     }
   }, []);
+
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
+  const [content, setContent] = useState("");
+  const categoryTitle = 'Design'; 
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const newArticleData: Article = {
+      id: Date.now().toString(), 
+      title,
+      summary,
+      content,
+      slug: title.toLowerCase().replace(/\s+/g, '-'),
+      date: new Date(), 
+    };
+
+    createArticle(categoryTitle, newArticleData) 
+  };
+
+  const handleUpdateSubmit = (e: any) => {
+    e.preventDefault();
+
+    const newArticleData: Article = {
+      id: "1702629539164", 
+      title: 'Hello Updated', 
+      summary: 'Summary text',
+      content: 'Content..',
+      slug: 'hello',
+      date: new Date(), 
+    };
+
+    updateArticleById("1702629539164", newArticleData) 
+  }
 
   return (
     <div className={styles.page_wrapper}>
@@ -155,14 +195,71 @@ const Edit = () => {
             </div>
           </div>
           <div className={openTab === 2 ? styles.block : styles.hidden}>
-            <p>
-              2Collaboratively administrate empowered markets via plug-and-play
-              networks. Dynamically procrastinate B2C users after installed base
-              benefits.
-              <br />
-              <br /> Dramatically visualize customer directed convergence
-              without revolutionary ROI.
-            </p>
+            <div>
+              <h3>New Article</h3>
+
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Title:
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label>
+                  Summary:
+                  <textarea
+                    value={summary}
+                    onChange={(e) => setSummary(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label>
+                  Content:
+                  <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </label>
+                <br />
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+
+            <div>
+              <h3>Update Article Hello</h3>
+
+              <form onSubmit={handleUpdateSubmit}>
+                <label>
+                  Title:
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label>
+                  Summary:
+                  <textarea
+                    value={summary}
+                    onChange={(e) => setSummary(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label>
+                  Content:
+                  <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </label>
+                <br />
+                <button type="submit">Submit</button>
+              </form>
+            </div>
           </div>
           <div className={openTab === 3 ? styles.block : styles.hidden}>
             <p>

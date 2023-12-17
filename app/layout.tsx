@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppWrapper>{children}</AppWrapper>
+        <div id="portal-root"></div>
       </body>
     </html>
   );
