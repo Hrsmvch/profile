@@ -10,11 +10,13 @@ import getFormattedDate from "@/utils/getFormatedDate.utils";
 import getShuffleArray from "@/utils/getShuffleArray";
 import { default as ArrowUpIcon } from "@/public/arrow_up_right.svg";
 import Footer from "@/components/footer/footer"; 
+import ArticleContent from "./components/ArticleContent";
 
 type ArticleData = Article | null;
 
 export function generateStaticParams() {
-  const pages = ['/hello', '/*'];
+ 
+  const pages = ['/blog/hello', 'result-page']; 
   return pages.map((page) => ({ slug: page }));
 }
  
@@ -45,7 +47,7 @@ const page = () => {
   // if (!article) return;
 
   return (
-    <>
+    <> 
       <header className={styles.blog_header}>
         <a href="/" className={styles.logo}>
           HARASYMOVYCH
@@ -56,6 +58,7 @@ const page = () => {
 {/*           <div className={styles.date}>{getFormattedDate(article.date)}</div> */}
         </div>
       </header>
+      <ArticleContent />
 {/*       <section className={styles.article_content}>
         <div className={styles.container}>
           <div
