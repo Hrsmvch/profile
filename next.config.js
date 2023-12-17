@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = { 
-    output: process.env.NODE_ENV === "development" ? undefined : "export",
+  output: process.env.NODE_ENV === "development" ? undefined : "export",
+  basePath: 'https://harasymovych.com/',  
+  assetPrefix: 'https://harasymovych.com/',
   images: {
     // your images configuration options here
   },
