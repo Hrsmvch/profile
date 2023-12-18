@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "firebase": "^10.7.1",
+    "formik": "^2.4.5",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-select": "^5.8.0",
     "sass": "^1.69.5",
     "sharp": "^0.33.0"
   },

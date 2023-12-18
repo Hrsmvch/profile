@@ -1,4 +1,4 @@
-import { Article, BlogCategory } from "@/types";
+import { Article, ArticleBase, BlogCategory } from "@/types";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
  
@@ -105,7 +105,7 @@ export const getCategoriesAndDocuments = async (): Promise<BlogCategory[]> => {
 
 export const createArticle = async (
   categoryTitle: string,
-  articleData: Article
+  articleData: ArticleBase
 ): Promise<void> => {
   const categoryDocRef = doc(db, 'blog', categoryTitle.toLowerCase());
  
@@ -147,6 +147,43 @@ export const updateArticleById = async (
       const categoryDocRef = doc(db, 'blog', category.title.toLowerCase());
       await updateDoc(categoryDocRef, { items: updatedItems });
       break;  
+    }
+  }
+};
+
+export const removeArticleById = async (id: string): Promise<void> => {
+  const categories = await getCategoriesAndDocuments();
+
+  for (const category of categories) {
+    const foundIndex = category.items.findIndex((article) => article.id === id);
+
+    if (foundIndex !== -1) {
+      const updatedItems = [...category.items];
+      updatedItems.splice(foundIndex, 1);
+
+      const categoryDocRef = doc(db, 'blog', category.title.toLowerCase());
+      await updateDoc(categoryDocRef, { items: updatedItems });
+      break;
+    }
+  }
+};
+
+export const changePublishStatus = async (id: string): Promise<void> => {
+  const categories = await getCategoriesAndDocuments();
+
+  for (const category of categories) {
+    const foundIndex = category.items.findIndex((article) => article.id === id);
+
+    if (foundIndex !== -1) {
+      const updatedItems = [...category.items];
+      updatedItems[foundIndex] = {
+        ...updatedItems[foundIndex],
+        published: !updatedItems[foundIndex].published,
+      };
+
+      const categoryDocRef = doc(db, 'blog', category.title.toLowerCase());
+      await updateDoc(categoryDocRef, { items: updatedItems });
+      break;
     }
   }
 };

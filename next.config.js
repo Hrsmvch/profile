@@ -1,23 +1,20 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
+const nextConfig = {
   output: process.env.NODE_ENV === "development" ? undefined : "export",
-  basePath: 'https://harasymovych.com/',  
-  assetPrefix: 'https://harasymovych.com/',
-  images: {
-    // your images configuration options here
-  },
+  basePath: process.env.NODE_ENV === "development" ? undefined : 'https://harasymovych.com/',
+  assetPrefix: process.env.NODE_ENV === "development" ? undefined : 'https://harasymovych.com/',
+  
   webpack(config) {
     config.module.rules.push({
-      test: /\.svg$/, 
+      test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
-
+    
     return config;
-  }, 
-     experimental: {
-    // your experimental configuration
   },
- 
+  images: {},
+  experimental: {},
+
 }
 
 module.exports = nextConfig

@@ -4,276 +4,57 @@ import { useRouter } from "next/navigation";
 import getCookie from "@/utils/getCookieValue";
 import styles from "./styles.module.scss";
 import Header from "@/components/header/header";
-import { createArticle, updateArticleById } from "@/utils/firebase.utils";
-import { Article } from "@/types";
+import BlogTabContent from "./components/blog/BlogTab";
+import ProfileTabContent from "./components/profile/profileTab";
+import ProjectsTabContent from "./components/projects/projectsTab";
+
+const TAB_TITLES = ["Profile", "Blog", "Projects"];
 
 const Edit = () => {
   const router = useRouter();
   const [openTab, setOpenTab] = useState(1);
 
-  // const { currentUser, setCurrentUser } = useContext(UserContext);
-  // const handleSignOut = async () => {
-  //   await signOutUser();
-  //   // setCurrentUser(null);
-  //   router.push('/hv-admin')
-  // }
-
   useEffect(() => {
-    if (
-      !getCookie("adminKey") ||
-      getCookie("adminKey") != process.env.NEXT_PUBLIC_ADMIN_KEY
-    ) {
+    const adminKey = getCookie("adminKey");
+
+    if (!adminKey || adminKey !== process.env.NEXT_PUBLIC_ADMIN_KEY) {
       router.push("/hv-admin");
     }
-  }, []);
-
-  const [title, setTitle] = useState("");
-  const [summary, setSummary] = useState("");
-  const [content, setContent] = useState("");
-  const categoryTitle = 'Design'; 
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    const newArticleData: Article = {
-      id: Date.now().toString(), 
-      title,
-      summary,
-      content,
-      slug: title.toLowerCase().replace(/\s+/g, '-'),
-      date: new Date(), 
-    };
-
-    createArticle(categoryTitle, newArticleData) 
-  };
-
-  const handleUpdateSubmit = (e: any) => {
-    e.preventDefault();
-
-    const newArticleData: Article = {
-      id: "1702629539164", 
-      title: 'Hello Updated', 
-      summary: 'Summary text',
-      content: 'Content..',
-      slug: 'hello',
-      date: new Date(), 
-    };
-
-    updateArticleById("1702629539164", newArticleData) 
-  }
+  }, [router]);
 
   return (
     <div className={styles.page_wrapper}>
       <Header title={"Halyna Harasymovych"} subtitle={"Update profile"} />
       <div className={styles.pages_tab}>
         <div className={styles.tab_titles}>
-          <a
-            className={`${styles.title_item} ${
-              openTab === 1 ? styles.active : ""
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              setOpenTab(1);
-            }}
-          >
-            Profile
-          </a>
-          <a
-            className={`${styles.title_item} ${
-              openTab === 2 ? styles.active : ""
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              setOpenTab(2);
-            }}
-          >
-            Blog
-          </a>
-          <a
-            className={`${styles.title_item} ${
-              openTab === 3 ? styles.active : ""
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              setOpenTab(3);
-            }}
-          >
-            Projects
-          </a>
+          {TAB_TITLES.map((title, index) => (
+            <a
+              key={index}
+              className={`${styles.title_item} ${
+                openTab === index + 1 ? styles.active : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenTab(index + 1);
+              }}
+            >
+              {title}
+            </a>
+          ))}
         </div>
 
         <div className={styles.tabs_content}>
-          <div className={openTab === 1 ? styles.block : styles.hidden}>
-            <div className={styles.section}>
-              <div className={styles.heading}>
-                <h3>Summery</h3>
+          {[ProfileTabContent, BlogTabContent, ProjectsTabContent].map(
+            (TabComponent, index) => (
+              <div
+                key={index}
+                className={openTab === index + 1 ? styles.block : styles.hidden}
+              >
+                <TabComponent />
               </div>
-              <div className={styles.items}>
-                <textarea name="summery"></textarea>
-
-                <div className={styles.label}>Image</div>
-                <input type="file" />
-
-                <div className={styles.label}>CV</div>
-                <input type="file" />
-              </div>
-            </div>
-
-            <div className={styles.section}>
-              <div className={styles.heading}>
-                <h3>Work experience</h3>
-              </div>
-              <div className={styles.items}>
-                <button>Add new</button>
-
-                <div className={styles.work_exp}>
-                  <div className={styles.index}>1 | </div>
-                  <input type="text" placeholder="23. June 2020 - present" />
-                  <input type="text" placeholder="Front-end developer" />
-                  <input type="text" placeholder="Company inc." />
-                  <input type="text" placeholder="Description" />
-                </div>
-                <div className={styles.work_exp}>
-                  <div className={styles.index}>2 | </div>
-                  <input
-                    type="text"
-                    value={"23. June 2020 - 14 January 2024"}
-                    placeholder="23. June 2020 - present"
-                  />
-                  <input
-                    type="text"
-                    value={"Front-end developer"}
-                    placeholder="Front-end developer"
-                  />
-                  <input type="text" value={"Tallium Inc."} placeholder="" />
-                  <input type="text" placeholder="Description" />
-                </div>
-                <div className={styles.work_exp}>
-                  <div className={styles.index}>3 | </div>
-                  <input
-                    type="text"
-                    value={"13. June 2020 - 10 January 2024"}
-                    placeholder="23. June 2020 - present"
-                  />
-                  <input
-                    type="text"
-                    value={"Back-end developer"}
-                    placeholder="Front-end developer"
-                  />
-                  <input type="text" value={"Sphere.TO"} placeholder="" />
-                  <input type="text" placeholder="Description" />
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.section}>
-              <div className={styles.heading}>
-                <h3>Courses</h3>
-              </div>
-              <div className={styles.items}>
-                <div className={styles.course_item}>
-                  <div className={styles.index}>1 | </div>
-                  <input type="text" placeholder="Course name" />
-                  <input type="text" placeholder="Small description" />
-                  <input type="file" />
-                </div>
-
-                <div className={styles.course_item}>
-                  <div className={styles.index}>2 | </div>
-                  <input type="text" placeholder="Course name" />
-                  <input type="text" placeholder="Small description" />
-                  <input type="file" />
-                </div>
-
-                <div className={styles.course_item}>
-                  <div className={styles.index}>3 | </div>
-                  <input type="text" placeholder="Course name" />
-                  <input type="text" placeholder="Small description" />
-                  <input type="file" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={openTab === 2 ? styles.block : styles.hidden}>
-            <div>
-              <h3>New Article</h3>
-
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Title:
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </label>
-                <br />
-                <label>
-                  Summary:
-                  <textarea
-                    value={summary}
-                    onChange={(e) => setSummary(e.target.value)}
-                  />
-                </label>
-                <br />
-                <label>
-                  Content:
-                  <textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-
-            <div>
-              <h3>Update Article Hello</h3>
-
-              <form onSubmit={handleUpdateSubmit}>
-                <label>
-                  Title:
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </label>
-                <br />
-                <label>
-                  Summary:
-                  <textarea
-                    value={summary}
-                    onChange={(e) => setSummary(e.target.value)}
-                  />
-                </label>
-                <br />
-                <label>
-                  Content:
-                  <textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-          </div>
-          <div className={openTab === 3 ? styles.block : styles.hidden}>
-            <p>
-              3Collaboratively administrate empowered markets via plug-and-play
-              networks. Dynamically procrastinate B2C users after installed base
-              benefits.
-              <br />
-              <br /> Dramatically visualize customer directed convergence
-              without revolutionary ROI.
-            </p>
-          </div>
+            )
+          )}
         </div>
-
-        <button>Save</button>
       </div>
     </div>
   );
