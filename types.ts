@@ -39,3 +39,35 @@ export interface SelectProps {
   label: string;
   value: string;
 }
+
+export type ProjectFrontendBase = {
+  id: string;
+  name: string;
+  summary: string;
+  slug: string;
+  date: Date;
+  published: boolean;
+
+};
+
+export type ProjectDesignBase = {
+  id: string;
+  name: string;
+  summary: string;
+  slug: string;
+  date: Date;
+  published: boolean;
+  urlSource: string;
+
+};
+
+export type Project = ProjectFrontendBase | ProjectDesignBase;
+
+export interface ProjectCategory {
+  title: string;
+  items: Project[];
+}
+
+export type ProjectWithCategory<T extends Project> = T & { category: string };
+
+export type ProjectBase = ProjectWithCategory<Project>;
