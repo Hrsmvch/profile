@@ -2,14 +2,19 @@
 
 import { Timestamp } from "firebase/firestore";
 
-export interface Article {
+export type ArticleBase = {
   id: string;
   title: string;
   summary: string;
   content: string;
-  date: Date | Timestamp;
   slug: string;
-}
+  date: Date;
+  published: boolean;
+};
+
+export type ArticleWithCategory<T extends ArticleBase> = T & { category: string };
+
+export type Article = ArticleWithCategory<ArticleBase>;
 
 export interface BlogCategory {
   title: string;
@@ -28,4 +33,9 @@ export interface FilterItemProps {
 
 export interface ArticleItemProps {
   article: Article;
+}
+
+export interface SelectProps {
+  label: string;
+  value: string;
 }
