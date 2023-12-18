@@ -15,12 +15,10 @@ type Props = {
 
 export default function ArticlesList({ handleEditPost, handleGetArticles, articles }: Props) {
   
- 
   const handleCLickEdit = (post: Article) => handleEditPost(post);
   const handleChangePublish = async (id: string) => {
     await changePublishStatus(id);
-    handleGetArticles();
-
+    handleGetArticles(); 
   }
   const handleRemovePost = async (id: string) => { 
     await removeArticleById(id)

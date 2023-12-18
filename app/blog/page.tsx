@@ -31,8 +31,8 @@ const Blog: React.FC<BlogProps> = () => {
     .filter(
       (category) =>
         activeFilter === "all" || category.title === activeFilter
-    )
-    .map((category) => category.items)
+    ) 
+    .flatMap((category) => category.items.filter((article: Article) => article.published))
     .flat();
 
   const hasMoreArticles: boolean = visibleArticles < filteredArticles.length;

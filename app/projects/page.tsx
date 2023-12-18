@@ -1,24 +1,41 @@
 "use client";
-import Footer from "@/components/footer/footer";
+import { useEffect, useState } from "react";
 import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
+import { getProjectsCategoriesAndDocuments } from "@/utils/firebase.utils";
+import { ProjectItem } from "./components/ProjectItem";
 import styles from "./styles.module.scss";
-import { useState } from "react";
-import { default as ArrowIcon } from "../../public/arrow.svg";
-
 
 const Projects = () => {
-  const projects = [{}, {}, {}, {}, {}];
   const [activeFilter, setActiveFilter] = useState("all");
-  const [visibleProjects, setVisibleProjects] = useState(3);
+  const [visibleProjects, setVisibleProjects] = useState(6);
+  const [categoriesMap, setCategoriesMap] = useState<any[]>([]);
 
-  const filteredProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((project: any) => project?.tag == activeFilter);
+  //   useEffect(() => {
+  //     addProjectCollectionAndDocuments('projects', PROJECTS_START_DATA)
+  // }, []);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryMap = await getProjectsCategoriesAndDocuments();
+      setCategoriesMap(categoryMap);
+    };
+
+    getCategories();
+  }, []);
+
+  const filteredProjects: any[] = categoriesMap
+    .filter(
+      (category) => activeFilter === "all" || category.title === activeFilter
+    )
+    .flatMap((category) =>
+      category.items.filter((project: any) => project.published)
+    )
+    .flat();
 
   const handleLoadMore = () => {
     setVisibleProjects((prevVisibleProjects) => prevVisibleProjects + 3);
-  }; 
+  };
 
   return (
     <>
@@ -34,50 +51,29 @@ const Projects = () => {
             >
               All
             </div>
-            <div
-              onClick={() => setActiveFilter("Design")}
-              className={`${styles.filter_item} ${
-                activeFilter == "Design" ? styles.active : ""
-              } `}
-            >
-              Design
-            </div>
-            <div
-              onClick={() => setActiveFilter("Frontend")}
-              className={`${styles.filter_item} ${
-                activeFilter == "Frontend" ? styles.active : ""
-              } `}
-            >
-              Frontend
-            </div>
+            {categoriesMap.map((category: any) => (
+              <div
+                key={category.title}
+                onClick={() => setActiveFilter(category.title)}
+                className={`${styles.filter_item} ${
+                  activeFilter === category.title ? styles.active : ""
+                } `}
+              >
+                {category.title}
+              </div>
+            ))}
           </div>
 
           <div className={styles.projects}>
-            {filteredProjects.slice(0, visibleProjects).map((project: any) => (
-              <>
-                <div className={styles.project_item}>
-                  <div className={styles.image}>
-                    <img src={'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'} alt="Cue.inc" />
-                  </div>
-                  <div className={styles.info}>
-                    <div className={styles.heading}>
-                      <div className={styles.date}>{'13. July 2023'}</div>
-                      <div className={styles.title}>{'Cue. inc'}</div>
-                    </div>
-                    <div className={styles.summary}>{'"Cue" is an all-in-one self-management app that empowers users to efficiently organize and optimize various aspects of their lives, including finance management, calendar scheduling, note-taking, and more. With its seamless integration and user-friendly interface, Cue becomes the ultimate tool to help individuals achieve personal and financial goals.'}</div>
-                    <a href={project.slug} className={styles.button}>
-                      <ArrowIcon />
-                    </a>
-                  </div>
-                </div>
-              </>
+            {filteredProjects?.slice(0, visibleProjects).map((project: any) => (
+              <ProjectItem project={project} />
             ))}
           </div>
-            {visibleProjects < filteredProjects.length && (
-              <div className={styles.more}>
-                <button onClick={handleLoadMore}>More</button>
-              </div>
-            )}
+          {visibleProjects < filteredProjects.length && (
+            <div className={styles.more}>
+              <button onClick={handleLoadMore}>More</button>
+            </div>
+          )}
         </div>
       </section>
 

@@ -3,7 +3,7 @@
   gap: 50px;
 
   .posts {
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     gap: 25px; 
@@ -62,12 +62,52 @@
   }
 
   .form_wrapper {
-    width: 50%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 
     h2{
       font-size: 20px;
       font-weight: 400;
     }
+
+    form{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      input{
+        padding: 10px 12px;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #858585;
+        outline: none;
+      }
+
+      .actions{
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 20px;
+        button{
+          padding: 10px;
+          border-radius: 6px;
+          border: 1px solid #333;
+          background-color: transparent;
+          transition: 300ms linear all;
+          cursor: pointer;         
+          
+          &:last-child{
+            transition: 300ms linear all;
+            background: #333;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+
 
   }
 }

@@ -1,4 +1,4 @@
-import { Article, ArticleBase, BlogCategory } from "@/types";
+import { Article, ArticleBase, BlogCategory, ProjectCategory } from "@/types";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
  
@@ -186,4 +186,29 @@ export const changePublishStatus = async (id: string): Promise<void> => {
       break;
     }
   }
+};
+
+
+
+
+// PROJECTS
+export const addProjectCollectionAndDocuments = async (collectionKey: any, objectsToAdd: any) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object: any) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log('Done!');
+}
+
+export const getProjectsCategoriesAndDocuments = async (): Promise<ProjectCategory[]> => {
+  const collectionRef = collection(db, 'projects');
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as ProjectCategory);
 };
