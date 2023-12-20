@@ -110,10 +110,12 @@
         border-radius: 16px;
         padding: 20px;
         margin-bottom: 8px;
+        width: 100%;
 
         h2{
           font-size: 18px;
           font-weight: 400;
+          margin-bottom: 20px;
         }
       }
 
@@ -123,6 +125,42 @@
         border: none;
         border-bottom: 1px solid #858585;
         outline: none;
+        width: 100%;
+      }
+
+      .tech_items{
+        margin: 20px 0;
+
+        .item{
+          margin-bottom: 8px;
+          display: flex;
+          align-items: flex-end;
+          gap: 25px;
+
+          div{
+            display: flex;
+            text-wrap: nowrap;
+          }
+
+          input{
+            
+          }
+        }
+
+
+      }
+
+      .add_row__btn{
+        border: 1px dashed #858585;
+        padding: 16px;
+        width: 100%;
+        background: transparent;
+        cursor: pointer;
+        margin-top: 20px;
+
+        &:hover{
+          border: 1px solid #858585;
+        }
       }
 
       .actions{
