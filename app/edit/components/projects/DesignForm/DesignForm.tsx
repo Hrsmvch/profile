@@ -9,11 +9,11 @@ import Typography from './Typography';
 import Colors from './Colors';
 import Icons from './Icons';
 
-type Props = { data: Project | null, categories: SelectProps[], handleType: any }
+type Props = { data: any, categories: SelectProps[], handleType: any }
 
 export default function DesignForm({data, categories, handleType}: Props) {
   
-  const handleSubmit = async (values: ProjectBase,  { resetForm }: FormikHelpers<ProjectBase>) => {
+  const handleSubmit = async (values: any,  { resetForm }: FormikHelpers<any>) => {
     const { category, ...valuesData } = values;
     const updatedData = {
       ...valuesData,
