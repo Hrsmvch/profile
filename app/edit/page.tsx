@@ -10,6 +10,7 @@ import ProjectsTabContent from "./components/projects/projectsTab";
 
 const TAB_TITLES = ["Profile", "Blog", "Projects"];
 
+
 const Edit = () => {
   const router = useRouter();
   const [openTab, setOpenTab] = useState(1);

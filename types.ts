@@ -40,6 +40,31 @@ export interface SelectProps {
   value: string;
 }
 
+ 
+export type Tag = {
+  tag_name: string;
+};
+
+export type TechStack = {
+  stack_title: string;
+  stack_tags: Tag[];
+};
+
+export type KeyFeature = {
+  preview: string;
+  items: string[]; // Adjust the type based on the actual content of items
+};
+
+export type TypographyInfo = {
+  font_name: string;
+  font_summary: string;
+};
+
+export type FutureEnhancement = {
+  summary: string;
+  tech_items: string[]; // Adjust the type based on the actual content of tech_items
+};
+
 export type ProjectFrontendBase = {
   id: string;
   name: string;
@@ -47,8 +72,24 @@ export type ProjectFrontendBase = {
   slug: string;
   date: Date;
   published: boolean;
-
+  stack: {
+    summary: string;
+    tech_items: TechStack[];
+  };
+  keyFeatures: KeyFeature;
+  topography: TypographyInfo;
+  colors: string[]; // Adjust the type based on the actual content of colors
+  icons: string[]; // Adjust the type based on the actual content of icons
+  futureEnhancements: FutureEnhancement;
 };
+
+
+export type FormProps = {
+  data: any; 
+  categories: SelectProps[];
+  handleType: (value: string) => void;
+};
+
 
 export type ProjectDesignBase = {
   id: string;
