@@ -2,18 +2,19 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
-import { getProjectsCategoriesAndDocuments } from "@/utils/firebase.utils";
+import { addProjectCollectionAndDocuments, getProjectsCategoriesAndDocuments } from "@/utils/firebase.utils";
 import { ProjectItem } from "./components/ProjectItem";
 import styles from "./styles.module.scss";
+import PROJECTS_START_DATA from '@/projects-test-data';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [visibleProjects, setVisibleProjects] = useState(6);
   const [categoriesMap, setCategoriesMap] = useState<any[]>([]);
 
-  //   useEffect(() => {
-  //     addProjectCollectionAndDocuments('projects', PROJECTS_START_DATA)
-  // }, []);
+    useEffect(() => {
+      // addProjectCollectionAndDocuments('projects', PROJECTS_START_DATA)
+  }, []);
 
   useEffect(() => {
     const getCategories = async () => {

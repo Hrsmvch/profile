@@ -39,20 +39,20 @@ export interface SelectProps {
   label: string;
   value: string;
 }
-
  
-export type Tag = {
-  tag_name: string;
-};
-
 export type TechStack = {
   stack_title: string;
-  stack_tags: Tag[];
+  stack_tags: string[];
+};
+
+export type KeyFeatureItem = {
+  title: string;
+  description: string;  
 };
 
 export type KeyFeature = {
   preview: string;
-  items: string[]; // Adjust the type based on the actual content of items
+  items: KeyFeatureItem[];  
 };
 
 export type TypographyInfo = {
@@ -62,7 +62,7 @@ export type TypographyInfo = {
 
 export type FutureEnhancement = {
   summary: string;
-  tech_items: string[]; // Adjust the type based on the actual content of tech_items
+  items: KeyFeatureItem[];  
 };
 
 export type ProjectFrontendBase = {
@@ -72,6 +72,8 @@ export type ProjectFrontendBase = {
   slug: string;
   date: Date;
   published: boolean;
+  liveDemo: string;
+  urlSource: string;
   stack: {
     summary: string;
     tech_items: TechStack[];
@@ -90,7 +92,6 @@ export type FormProps = {
   handleType: (value: string) => void;
 };
 
-
 export type ProjectDesignBase = {
   id: string;
   name: string;
@@ -98,7 +99,19 @@ export type ProjectDesignBase = {
   slug: string;
   date: Date;
   published: boolean;
-  urlSource: string;
+  liveDemo: string;
+  urlSource: string; 
+  designProcess: {
+    summary: string;
+    items: string[];
+  };
+  topography: TypographyInfo;
+  colors: string[];  
+  icons: string[];
+  showcase: {
+    summary: string;
+    items: string[];
+  };
 
 };
 

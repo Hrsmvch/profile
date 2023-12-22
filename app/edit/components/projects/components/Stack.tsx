@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Field, useFormikContext } from "formik";
-import { TechStack } from "@/types";
+import { ProjectFrontendBase, TechStack } from "@/types";
 import styles from "../styles.module.scss";
+import { default as RemoveIcon } from "@/public/icons/close.svg";
+import TagsInput from "@/components/TagsInput/TagsInput";
 
 export default function StackBlock() {
-  const { values, setFieldValue } = useFormikContext(); 
-  const [stackRows, setStackRows] = useState<TechStack[]>([]);
+  const { values, setFieldValue } = useFormikContext<ProjectFrontendBase>();
+  const [stackRows, setStackRows] = useState<TechStack[]>(values?.stack.tech_items || []); 
 
   useEffect(() => {
-    setFieldValue('stack.tech_items', stackRows);
+    setFieldValue("stack.tech_items", stackRows);
   }, [stackRows, setFieldValue]);
 
   const handleAddRow = async () => {
-    await setStackRows([...stackRows, { stack_title: '', stack_tags: [] }]);
+    await setStackRows([...stackRows, { stack_title: "", stack_tags: [] }]);
   };
 
   const handleRemoveRow = async (index: number) => {
@@ -29,11 +31,24 @@ export default function StackBlock() {
     };
     await setStackRows(updatedItems);
   };
- 
+
+  const handleTagsChange = async (index: number, values: any) => {
+    const updatedItems = [...stackRows];
+    updatedItems[index] = {
+      ...updatedItems[index],
+      stack_tags: values,
+    };
+    await setStackRows(updatedItems);
+  };
+
   return (
     <div className={styles.block}>
-      <h2>Technology stack</h2> 
-      <Field type="text" name="stack.summary" placeholder="Technology summary"  />
+      <h2>Technology stack</h2>
+      <Field
+        type="text"
+        name="stack.summary"
+        placeholder="Technology summary"
+      />
 
       {stackRows?.length ? (
         <div className={styles.tech_items} key={stackRows?.length}>
@@ -49,8 +64,15 @@ export default function StackBlock() {
                   handleTechNameChange(index, e.target.value)
                 }
               />
-              <input type="text" placeholder="tags (future)" />
-              <div onClick={() => handleRemoveRow(index)}>X</div>
+              <TagsInput handleTagsChange={(values: any) => handleTagsChange(index, values)} defaultTags={item.stack_tags} />
+
+              <button
+                type="button"
+                className={styles.remove_btn}
+                onClick={() => handleRemoveRow(index)}
+              >
+                <RemoveIcon />
+              </button>
             </div>
           ))}
         </div>

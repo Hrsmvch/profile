@@ -1,10 +1,10 @@
 import React from 'react'
 import { Field, useFormikContext } from 'formik';
-import { ProjectFrontendBase } from '@/types';
+import { Project, ProjectFrontendBase } from '@/types';
 import styles from '../styles.module.scss';
 
 export default function Typography() {
-  const { values } = useFormikContext<ProjectFrontendBase>();  
+  const { values } = useFormikContext<Project>();  
  
   return (
     <div className={styles.block}>

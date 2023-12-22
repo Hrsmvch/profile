@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { getProjectsCategoriesAndDocuments } from '@/utils/firebase.utils';
 import styles from './styles.module.scss';
 import ProjectsList from './ProjectsList';
-import ProjectsForm from './ProjectsForm';
+import ProjectsForm from './forms/ProjectsForm';
 import { Project } from '@/types';
 
 
