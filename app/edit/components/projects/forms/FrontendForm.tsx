@@ -5,15 +5,16 @@ import styles from "../styles.module.scss";
 import customStyles from '@/components/formElements/customSelectStyles';
 import { default as UploadIcon } from "@/public/icons/upload.svg";
 import Select from 'react-select';
-import StackBlock from './Stack';
-import KeyFeatures from './KeyFeatures';
-import Typography from './Typography';
-import Colors from './Colors';
-import Icons from './Icons';
-import FutureEnhancements from './FutureEnhancements';
+import StackBlock from '../components/Stack';
+import KeyFeatures from '../components/KeyFeatures';
+import Typography from '../components/Typography';
+import Colors from '../components/Colors';
+import Icons from '../components/Icons';
+import FutureEnhancements from '../components/FutureEnhancements';
  
 
 export default function FrontendForm({data, categories, handleType}: FormProps) {
+  console.log('categories: ', categories);
 
   const handleSubmit = async (values: ProjectFrontendBase,  { resetForm }: FormikHelpers<ProjectFrontendBase>) => {
     // const { category, ...valuesData } = values;
@@ -47,23 +48,26 @@ export default function FrontendForm({data, categories, handleType}: FormProps) 
         slug: data ? data?.slug : "",
         date: data ? data?.date : new Date(),
         published: data ? data?.published : true, 
+        preview: data ? data?.preview : '',
+        liveDemo: data ? data?.liveDemo : "",
+        urlSource: data ? data?.urlSource : "",
         stack: {
-          summary: '',
-          tech_items: [],
+          summary:  data ? data?.stack?.summary : '', 
+          tech_items: data ? data?.stack?.tech_items : [],
         },
         keyFeatures: {
-          preview: '',
-          items: [],
+          preview: data ? data?.keyFeatures?.preview : '',
+          items:  data ? data?.keyFeatures?.items : [],
         },
         topography: {
-          font_name: '',
-          font_summary: ''
+          font_name: data ? data?.topography?.font_name :'',
+          font_summary: data ? data?.topography?.font_summary :''
         },
-        colors: [],
-        icons: [],
+        colors: data ? data?.colors : [],
+        icons: data ? data?.icons : [],
         futureEnhancements: {
-          summary: '',
-          tech_items: [],
+          summary: data ? data?.futureEnhancements?.summary : '', 
+          items: data ? data?.futureEnhancements?.items : [],
         } 
       }}
       onSubmit={handleSubmit}
@@ -75,21 +79,22 @@ export default function FrontendForm({data, categories, handleType}: FormProps) 
             <div className={styles.info_preview}>
               <Field type="text" name="name" placeholder="Project name" />
               <Field type="text" name="summary" placeholder="Project summary" />
-              {!data ? (
-                <Select 
-                  options={categories ? categories : []}
-                  onChange={(select: any) =>{
-                    handleType(select.value)
-                  }
-                  }
-                  name="role"
-                  placeholder="Choose role"
-                  styles={customStyles} 
-                  components={{ IndicatorSeparator: () => null }}
-                />
-              ) : null}
+              <Field type="text" name="liveDemo" placeholder="Demo link" />
+              <Field type="text" name="urlSource" placeholder="Source link" />
             </div>
           </div>
+          {!data ? (
+            <Select 
+              key={categories?.length}
+              options={categories ? categories : []}
+              onChange={(select: any) => handleType(select.value)}
+              defaultValue={categories?.find((el: any) => el.value == 'Frontend')}
+              name="role"
+              placeholder="Choose role"
+              styles={customStyles} 
+              components={{ IndicatorSeparator: () => null }}
+            />
+          ) : null}
 
           <StackBlock />
           <KeyFeatures /> 

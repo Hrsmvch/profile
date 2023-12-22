@@ -12,7 +12,9 @@ const nextConfig = {
     
     return config;
   },
-  images: {},
+  images: {
+    domains: ['picsum.photos'],
+  },
   experimental: {},
 
 }
